@@ -412,10 +412,9 @@ Object.assign(Mongo.Collection, {
 });
 
 Object.assign(Mongo.Collection.prototype, {
-  // 'insert' immediately returns the inserted document's new _id.
+  // When there is no callback method, 'insert' immediately returns the inserted document's new _id.
   // The others return values immediately if you are in a stub, an in-memory
-  // unmanaged collection, or a mongo-backed collection and you don't pass a
-  // callback. 'update' and 'remove' return the number of affected
+  // unmanaged collection, or a mongo-backed collection. 'update' and 'remove' return the number of affected
   // documents. 'upsert' returns an object with keys 'numberAffected' and, if an
   // insert happened, 'insertedId'.
   //
@@ -443,7 +442,7 @@ Object.assign(Mongo.Collection.prototype, {
   // off.
 
   /**
-   * @summary Insert a document in the collection.  Returns its unique _id.
+   * @summary Insert a document in the collection.  Returns its unique _id, either directly from 'insert' or via the callback.
    * @locus Anywhere
    * @method  insert
    * @memberof Mongo.Collection
@@ -635,7 +634,7 @@ Object.assign(Mongo.Collection.prototype, {
   },
 
   /**
-   * @summary Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified)  and `insertedId` (the unique _id of the document that was inserted, if any).
+   * @summary Modify one or more documents in the collection, or insert one if no matching documents were found. Returns an object with keys `numberAffected` (the number of documents modified)  and `insertedId` (the unique _id of the document that was inserted, if any), either directly from 'upsert' or via the callback.
    * @locus Anywhere
    * @method upsert
    * @memberof Mongo.Collection
